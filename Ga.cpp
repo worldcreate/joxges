@@ -1,6 +1,7 @@
 #include "Ga.h"
 #include "Individual.h"
 #include "Util.h"
+#include "Ges.h"
 #include <algorithm>
 #include <limits.h>
 #include <math.h>
@@ -41,6 +42,8 @@ Ga::Ga(int argc,char *argv[]){
 		}
 		i++;
 	}
+	mArgc=argc;
+	mArgv=argv;
 }
 
 void Ga::execute(){
@@ -237,6 +240,15 @@ void Ga::jox(vector<Individual*> &family){
 		#endif
 		c1->fixGene(fileName);
 		c2->fixGene(fileName);
+		
+		Ges ges1(mArgc,mArgv);
+		Ges ges2(mArgc,mArgv);
+		ges1.setSolution(c1->getGene());
+		ges2.setSolution(c2->getGene());
+		ges1.execute();
+		ges2.execute();
+		c1->setGene(ges1.getSolution());
+		c2->setGene(ges2.getSolution());
 
 		family.push_back(c1);
 		family.push_back(c2);

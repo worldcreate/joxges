@@ -11,11 +11,14 @@ public:
 	Individual(int,int);
 	void initGene(const char*);
 	void fixGene(const char*);
+	void setGene(vector<vector<int> >);
+	vector<vector<int> > getGene();
 	void print();
 	void print(vector<vector<int> >&);
 	int getJobNum();
 	int getMachineNum();
 	int getFitness();
+	void setFitness(int);
 	vector<int>& operator[](int);
 	bool operator<(Individual& );
 	bool operator>(Individual& );

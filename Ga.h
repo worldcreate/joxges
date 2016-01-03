@@ -29,6 +29,8 @@ private:
 	int mChildNum;
 	char fileName[256];
 	vector<Individual*> mPopulation;
+	int mArgc;
+	char** mArgv;
 };
 
 #endif

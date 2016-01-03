@@ -96,7 +96,7 @@ void Ges::initialSolution(){
 	}
 }
 
-void Ges::setSolution(vector<vector<int> >& solution){
+void Ges::setSolution(vector<vector<int> > solution){
 	m_Solution.resize(m_SettingTable[0].size());
 	for(int m=0;m<solution.size();m++){
 		for(int i=0;i<solution[m].size();i++){
@@ -123,6 +123,10 @@ vector<vector<int> > Ges::getSolution(){
 	return dstSolution;
 }
 
+int Ges::getMakespan(){
+	return mMakespan;
+}
+
 void Ges::execute(){
 	vector<vector<JobPair> > _solution=m_Solution;
 	while(m_Iter<m_MaxIter){
@@ -145,6 +149,7 @@ void Ges::execute(){
 	Graph g(m_Solution,m_SettingTable);
 	g.setLongestPath();
 	printf("makespan=%d\n",g.getMakespan());
+	mMakespan=g.getMakespan();
 }
 
 void Ges::Routine(vector<vector<JobPair> >& solution,int L){
