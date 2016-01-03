@@ -14,8 +14,10 @@ using namespace std;
 
 class Ges{
 public:
-	Ges(int ,char **,int);
+	Ges(int ,char **);
 	void initialSolution();
+	void setSolution(vector<vector<int> >&);
+	vector<vector<int> > getSolution();
 	void execute();
 	~Ges();
 private:

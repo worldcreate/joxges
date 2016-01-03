@@ -15,19 +15,19 @@
 
 using namespace std;
 
-Ges::Ges(int argc,char **argv,int trial){
+Ges::Ges(int argc,char **argv){
 	m_Iter=0;
 	m_MaxIter=100;
 	m_IterRand=100;
-	strcpy(m_FileName,"probrem/FT3.txt");
+	strcpy(m_FileName,"probrem/FT10.txt");
 	m_kMax=3;
 	m_stagLS=50;
 	m_maxT=10;
 	m_GESMode=1;
 	fOut=stdout;
-	char outName[256]="";
-	char outArg[256]="";
-	char outFile[256];
+	// char outName[256]="";
+	// char outArg[256]="";
+	// char outFile[256];
 	int i=1;
 	struct stat stat_buf;
 	while(argc>i){
@@ -49,34 +49,32 @@ Ges::Ges(int argc,char **argv,int trial){
 				case 'G':
 					m_GESMode=atoi(arg);
 				break;
-				case 'o':
-					strcpy(outName,arg);
-				continue;
+				// case 'o':
+				// 	strcpy(outName,arg);
+				// continue;
 				// case 's':
 				// 	m_stagLS=atoi(arg);
 				// break;
 			}
-			sprintf(outArg,"%s_%s",outArg,&argv[i][1]);
+			// sprintf(outArg,"%s_%s",outArg,&argv[i][1]);
 		}
 		i++;
 	}
-	if(strcmp(outName,"")!=0){
-		sprintf(outFile,"data/%s_%d.txt",outName,trial);
-	}else{
-		sprintf(outFile,"data/%s_%d.txt",outArg,trial);
-	}
-	if(stat("./data",&stat_buf)==-1){
-		mkdir("data",0755);
-	}
-	fOut=fopen(outFile,"w");
+	// if(strcmp(outName,"")!=0){
+	// 	sprintf(outFile,"data/%s_%d.txt",outName,trial);
+	// }else{
+	// 	sprintf(outFile,"data/%s_%d.txt",outArg,trial);
+	// }
+	// if(stat("./data",&stat_buf)==-1){
+	// 	mkdir("data",0755);
+	// }
+	// fOut=fopen(outFile,"w");
 
 	FileReader *fr=FileReader::getInstance(m_FileName);
 	m_SettingTable=fr->getTable();
 
 	for(int i=0;i<m_SettingTable.size()*m_SettingTable[0].size()+2;i++)
 		m_Penalty.push_back(1);
-
-	initialSolution();
 }
 
 void Ges::initialSolution(){
@@ -96,6 +94,33 @@ void Ges::initialSolution(){
 			}
 		}
 	}
+}
+
+void Ges::setSolution(vector<vector<int> >& solution){
+	m_Solution.resize(m_SettingTable[0].size());
+	for(int m=0;m<solution.size();m++){
+		for(int i=0;i<solution[m].size();i++){
+			int job=solution[m][i];
+			for(int j=0;j<solution[m].size();j++){
+				if(m_SettingTable[job][j].machine==m){
+					m_Solution[m].push_back(m_SettingTable[job][j]);
+					break;
+				}
+			}
+		}
+	}
+}
+
+vector<vector<int> > Ges::getSolution(){
+	vector<vector<int> > dstSolution;
+	dstSolution.resize(m_Solution.size());
+	
+	for(int i=0;i<m_Solution.size();i++){
+		for(int j=0;j<m_Solution[i].size();j++){
+			dstSolution[i].push_back(m_Solution[i][j].jobIndex);
+		}
+	}
+	return dstSolution;
 }
 
 void Ges::execute(){
@@ -173,7 +198,7 @@ void Ges::Routine(vector<vector<JobPair> >& solution,int L){
 		m_Iter++;
 		Graph g(m_Solution,m_SettingTable);
 		g.setLongestPath();
-		fprintf(fOut,"%d,%d,%d\n",m_Iter,m_EP.size(),g.getMakespan());
+		// fprintf(fOut,"%d,%d,%d\n",m_Iter,m_EP.size(),g.getMakespan());
 		//cout<<"Iter="<<m_Iter<<endl;
 
 		// GES-1のために解とEPを保持
