@@ -70,8 +70,8 @@ Ges::Ges(int argc,char **argv,int trial){
 	}
 	fOut=fopen(outFile,"w");
 
-	FileReader fr(m_FileName);
-	m_SettingTable=fr.getTable();
+	FileReader *fr=FileReader::getInstance(m_FileName);
+	m_SettingTable=fr->getTable();
 
 	for(int i=0;i<m_SettingTable.size()*m_SettingTable[0].size()+2;i++)
 		m_Penalty.push_back(1);

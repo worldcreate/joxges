@@ -14,15 +14,12 @@ all: $(TARGET)
 debug:
 	make $(TARGET) DEBUG='-g -DDEBUG' CFLAGS='-O0'
 
-predebug: DEBUG=-g
-
-predebug: $(TARGET)
-
 test: 
 	./$(TARGET) -T
 
 $(TARGET): $(OBJS)
-	$(CC) $(LDFLAGS) $(DEBUG) -o $@ $(OBJS) $(LIBS) 
+	$(CC) $(LDFLAGS) $(DEBUG) -o $@ $(OBJS) $(LIBS)
+	
 run:
 	./$(TARGET)
 

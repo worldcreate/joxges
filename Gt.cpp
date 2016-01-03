@@ -14,8 +14,8 @@ Gt::Gt():mFix(false){
 }
 
 Gt::Gt(const char* filename):mFix(false){
-	FileReader fr(filename);
-	Table table=fr.getTable();
+	FileReader *fr=FileReader::getInstance(filename);
+	Table table=fr->getTable();
 	setTable(table);
 }
 
