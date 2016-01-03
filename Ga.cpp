@@ -6,27 +6,41 @@
 #include <math.h>
 #include <stdio.h>
 
-Ga::Ga(){
-}
+#define POPULATION 50
+#define MUTATION 1
+#define GENERATION 100
+#define CHILDNUM 2
 
-void Ga::setPopulation(int x){
-	mPopulationSize=x;
-}
-
-void Ga::setMutation(int x){
-	mMutation=x;
-}
-
-void Ga::setGeneration(int x){
-	mGeneration=x;
-}
-
-void Ga::setChildNum(int x){
-	mChildNum=x;
-}
-
-void Ga::setFileName(char *name){
-	strcpy(fileName,name);
+Ga::Ga(int argc,char *argv[]){
+	int i=1;
+	mPopulationSize=POPULATION;
+	mMutation=MUTATION;
+	mGeneration=GENERATION;
+	mChildNum=CHILDNUM;
+	strcpy(fileName,"probrem/FT10.txt");
+	while(argc>i){
+		if(argv[i][0]=='-'){
+			const char *arg=&argv[i][2];
+			switch(argv[i][1]){
+				case 'g':
+					mGeneration=atoi(arg);
+				break;
+				case 'p':
+					mPopulationSize=atoi(arg);
+				break;
+				case 'm':
+					mMutation=atoi(arg);
+				break;
+				case 'c':
+					mChildNum=atoi(arg);
+				break;
+				case 'f':
+					sprintf(fileName,"probrem/%s",arg);
+				break;
+			}
+		}
+		i++;
+	}
 }
 
 void Ga::execute(){
