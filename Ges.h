@@ -14,8 +14,11 @@ using namespace std;
 
 class Ges{
 public:
-	Ges(int ,char **,int);
+	Ges(int ,char **);
 	void initialSolution();
+	void setSolution(vector<vector<int> >);
+	vector<vector<int> > getSolution();
+	int getMakespan();
 	void execute();
 	~Ges();
 private:
@@ -45,6 +48,7 @@ private:
 	vector<vector<JobPair> > m_SettingTable;	// 縦Job 横技術的順序
 	int m_kMax;
 	FILE *fOut;
+	int mMakespan;
 };
 
 #endif

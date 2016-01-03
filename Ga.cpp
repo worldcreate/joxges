@@ -1,32 +1,49 @@
 #include "Ga.h"
 #include "Individual.h"
 #include "Util.h"
+#include "Ges.h"
 #include <algorithm>
 #include <limits.h>
 #include <math.h>
 #include <stdio.h>
 
-Ga::Ga(){
-}
+#define POPULATION 50
+#define MUTATION 1
+#define GENERATION 100
+#define CHILDNUM 2
 
-void Ga::setPopulation(int x){
-	mPopulationSize=x;
-}
-
-void Ga::setMutation(int x){
-	mMutation=x;
-}
-
-void Ga::setGeneration(int x){
-	mGeneration=x;
-}
-
-void Ga::setChildNum(int x){
-	mChildNum=x;
-}
-
-void Ga::setFileName(char *name){
-	strcpy(fileName,name);
+Ga::Ga(int argc,char *argv[]){
+	int i=1;
+	mPopulationSize=POPULATION;
+	mMutation=MUTATION;
+	mGeneration=GENERATION;
+	mChildNum=CHILDNUM;
+	strcpy(fileName,"probrem/FT10.txt");
+	while(argc>i){
+		if(argv[i][0]=='-'){
+			const char *arg=&argv[i][2];
+			switch(argv[i][1]){
+				case 'g':
+					mGeneration=atoi(arg);
+				break;
+				case 'p':
+					mPopulationSize=atoi(arg);
+				break;
+				case 'm':
+					mMutation=atoi(arg);
+				break;
+				case 'c':
+					mChildNum=atoi(arg);
+				break;
+				case 'f':
+					sprintf(fileName,"probrem/%s",arg);
+				break;
+			}
+		}
+		i++;
+	}
+	mArgc=argc;
+	mArgv=argv;
 }
 
 void Ga::execute(){
@@ -223,6 +240,15 @@ void Ga::jox(vector<Individual*> &family){
 		#endif
 		c1->fixGene(fileName);
 		c2->fixGene(fileName);
+		
+		Ges ges1(mArgc,mArgv);
+		Ges ges2(mArgc,mArgv);
+		ges1.setSolution(c1->getGene());
+		ges2.setSolution(c2->getGene());
+		ges1.execute();
+		ges2.execute();
+		c1->setGene(ges1.getSolution());
+		c2->setGene(ges2.getSolution());
 
 		family.push_back(c1);
 		family.push_back(c2);

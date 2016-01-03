@@ -28,6 +28,14 @@ void Individual::fixGene(const char *fileName){
 	mFitness=gt.getMakespan();
 }
 
+vector<vector<int> > Individual::getGene(){
+	return mGene;
+}
+
+void Individual::setGene(vector<vector<int> > gene){
+	mGene=gene;
+}
+
 void Individual::check(){
 	// Check Matrix
 	for(int i=0;i<mGene.size();i++){
@@ -73,6 +81,10 @@ int Individual::getMachineNum(){
 
 int Individual::getFitness(){
 	return mFitness;
+}
+
+void Individual::setFitness(int fitness){
+	mFitness=fitness;
 }
 
 vector<int>& Individual::operator[](int n){

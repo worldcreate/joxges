@@ -11,12 +11,7 @@ class Individual;
 
 class Ga{
 public:
-	Ga();
-	void setPopulation(int);
-	void setGeneration(int);
-	void setMutation(int);
-	void setChildNum(int);
-	void setFileName(char *);
+	Ga(int,char*[]);
 	void printPopulation();
 	void jox(vector<Individual*>&);
 	void execute();
@@ -34,6 +29,8 @@ private:
 	int mChildNum;
 	char fileName[256];
 	vector<Individual*> mPopulation;
+	int mArgc;
+	char** mArgv;
 };
 
 #endif
