@@ -4,7 +4,7 @@ LDFLAGS =
 INCLUDES = 
 LIBS =
 DEBUG =
-TARGET = main
+TARGET = joxges
 SRC=$(wildcard *.cpp) 
 OBJS = $(SRC:.cpp=.o)
 .SUFFIXES:	.cpp
