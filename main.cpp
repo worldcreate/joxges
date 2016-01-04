@@ -11,6 +11,22 @@
 
 using namespace std;
 
+void Usage(){
+	printf("Usage joxges [OPTION]\n");
+	printf("  -g\t generation num\n");
+	printf("  -p\t population num\n");
+	printf("  -m\t mutation rate\n");
+	printf("  -c\t make child num\n");
+	printf("  -t\t trial num\n");
+	printf("  -s\t random seed\n");
+	printf("  -i\t GES iteration num\n");
+	printf("  -k\t GES kMax num\n");
+	printf("  -r\t GES iterRand num\n");
+	printf("  -G\t GES Mode 1 or 2\n");
+	printf("  -f\t setting file name\n");
+	exit(0);
+}
+
 int main(int argc,char *argv[]){
 	int i=1;
 	int trial=TRIAL;
@@ -26,15 +42,7 @@ int main(int argc,char *argv[]){
 					seed=atoi(arg);
 				break;
 				case 'h':
-					printf("Usage Jox [OPTION]\n");
-					printf("  -g\t generation num\n");
-					printf("  -p\t population num\n");
-					printf("  -m\t mutation rate\n");
-					printf("  -c\t make child num\n");
-					printf("  -t\t trial num\n");
-					printf("  -s\t random seed\n");
-					printf("  -f\t setting file name\n");
-					exit(0);
+					Usage();
 				break;
 			}
 		}
