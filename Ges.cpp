@@ -632,5 +632,7 @@ void Ges::removeSolution(vector<vector<JobPair> > &solution,vector<Node*> &bottl
 }
 
 Ges::~Ges(){
-	fclose(fOut);
+	if(fOut!=stdout){
+		fclose(fOut);
+	}
 }

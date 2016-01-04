@@ -249,10 +249,29 @@ void Ga::jox(vector<Individual*> &family){
 		ges2.execute();
 		c1->setGene(ges1.getSolution());
 		c2->setGene(ges2.getSolution());
+		c1->setFitness(ges1.getMakespan());
+		c2->setFitness(ges2.getMakespan());
+		
+		#ifdef DEBUG
+			printf("after GES\n");
+			printf("c1\n");
+			c1->print();
+			printf("c2\n");
+			c2->print();
+			printf("=============================\n");
+		#endif
 
 		family.push_back(c1);
 		family.push_back(c2);
+		
+		#ifdef DEBUG
+			printf("end loop\n");
+		#endif
+		
 	}
+	#ifdef DEBUG
+		printf("family.size()=%d\n",family.size());
+	#endif
 	
 	sort(family.begin(),family.end(),Individual::less);
 	#ifdef DEBUG
