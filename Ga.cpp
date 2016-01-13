@@ -74,10 +74,11 @@ void Ga::execute(){
 	
 	while(g<mGeneration){
 		crossOver();
+		printMinFitness(g);
 		g++;
 	}
 
-	printMinFitness();
+	printMinFitness(g);
 }
 
 void Ga::printPopulation(){
@@ -352,7 +353,7 @@ void Ga::shiftChange(vector<int> &vec,int src,int dst){
 	}
 }
 
-void Ga::printMinFitness(){
+void Ga::printMinFitness(int g){
 	int temp=INT_MAX;
 	double ave=0;
 	double variance=0;
@@ -368,9 +369,10 @@ void Ga::printMinFitness(){
 		variance+=pow(mPopulation[i]->getFitness()-ave,2);
 	}
 	variance/=mPopulationSize;
-	cout<<"min="<<temp;
+	cout<<"gen="<<g;
+	cout<<",min="<<temp;
 	cout<<",variance="<<variance<<endl;
-	fprintf(fOut,"min=%d,variance=%lf\n",temp,variance);
+	fprintf(fOut,"gen=%d,min=%d,variance=%lf\n",g,temp,variance);
 }
 
 void Ga::removePopulation(int tar){

@@ -20,7 +20,7 @@ public:
 private:
 	void initialize();
 	void crossOver();
-	void printMinFitness();
+	void printMinFitness(int);
 	void mutation(Individual*);
 	void shiftChange(vector<int>&,int,int);
 	void removePopulation(int);
