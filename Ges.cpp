@@ -25,6 +25,7 @@ Ges::Ges(int argc,char **argv){
 	m_maxT=10;
 	m_GESMode=1;
 	fOut=stdout;
+	isVerbose=false;
 	// char outName[256]="";
 	// char outArg[256]="";
 	// char outFile[256];
@@ -48,6 +49,9 @@ Ges::Ges(int argc,char **argv){
 				break;
 				case 'G':
 					m_GESMode=atoi(arg);
+				break;
+				case 'v':
+					isVerbose=true;
 				break;
 				// case 'o':
 				// 	strcpy(outName,arg);
@@ -134,21 +138,25 @@ void Ges::execute(){
 		Graph graph(m_Solution,m_SettingTable);
 		graph.setLongestPath();
 		int L=graph.getMakespan()-1;
-
-		printf("L=%d\n",L);
+		
+		if(isVerbose)
+			printf("L=%d\n",L);
 		Routine(_solution,L);
 	}
 
-	printf("result\n");
-	for(int i=0;i<m_Solution.size();i++){
-		for(int j=0;j<m_Solution[i].size();j++){
-			printf("(%d,%d,%d) ",m_Solution[i][j].jobIndex,m_Solution[i][j].machine,m_Solution[i][j].time);
+	if(isVerbose){
+		printf("result\n");
+		for(int i=0;i<m_Solution.size();i++){
+			for(int j=0;j<m_Solution[i].size();j++){
+				printf("(%d,%d,%d) ",m_Solution[i][j].jobIndex,m_Solution[i][j].machine,m_Solution[i][j].time);
+			}
+			printf("\n");
 		}
-		printf("\n");
 	}
 	Graph g(m_Solution,m_SettingTable);
 	g.setLongestPath();
-	printf("makespan=%d\n",g.getMakespan());
+	if(isVerbose)
+		printf("makespan=%d\n",g.getMakespan());
 	mMakespan=g.getMakespan();
 }
 

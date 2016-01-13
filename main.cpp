@@ -24,6 +24,8 @@ void Usage(){
 	printf("  -r\t GES iterRand num\n");
 	printf("  -G\t GES Mode 1 or 2\n");
 	printf("  -f\t setting file name\n");
+	printf("  -o\t output logfile\n");
+	printf("  -v\t show GES progress\n");
 	exit(0);
 }
 
@@ -52,7 +54,7 @@ int main(int argc,char *argv[]){
 	for(int i=0;i<trial;i++){
 		Util::setSeed(SEED+i);
 		
-		Ga ga(argc,argv);
+		Ga ga(argc,argv,i);
 		ga.execute();
 	}
 }

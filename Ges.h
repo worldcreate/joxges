@@ -49,6 +49,7 @@ private:
 	int m_kMax;
 	FILE *fOut;
 	int mMakespan;
+	bool isVerbose;
 };
 
 #endif
