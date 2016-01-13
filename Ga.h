@@ -4,6 +4,7 @@
 #include <vector>
 #include <time.h>
 #include <windows.h>
+#include <stdio.h>
 
 using namespace std;
 
@@ -11,7 +12,7 @@ class Individual;
 
 class Ga{
 public:
-	Ga(int,char*[]);
+	Ga(int,char*[],int);
 	void printPopulation();
 	void jox(vector<Individual*>&);
 	void execute();
@@ -31,6 +32,7 @@ private:
 	vector<Individual*> mPopulation;
 	int mArgc;
 	char** mArgv;
+	FILE *fOut;
 };
 
 #endif

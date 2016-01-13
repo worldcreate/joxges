@@ -6,18 +6,22 @@
 #include <limits.h>
 #include <math.h>
 #include <stdio.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 #define POPULATION 50
 #define MUTATION 1
 #define GENERATION 100
 #define CHILDNUM 2
 
-Ga::Ga(int argc,char *argv[]){
+Ga::Ga(int argc,char *argv[],int trial){
 	int i=1;
 	mPopulationSize=POPULATION;
 	mMutation=MUTATION;
 	mGeneration=GENERATION;
 	mChildNum=CHILDNUM;
+	fOut=stdout;
+	struct stat stat_buf;
 	strcpy(fileName,"probrem/FT10.txt");
 	while(argc>i){
 		if(argv[i][0]=='-'){
@@ -37,6 +41,24 @@ Ga::Ga(int argc,char *argv[]){
 				break;
 				case 'f':
 					sprintf(fileName,"probrem/%s",arg);
+				break;
+				case 'o':
+					if(stat("./data",&stat_buf)==-1){
+						mkdir("data",0755);
+					}
+					char outName[512];
+					char outFile[512];
+					for(int i=0,j=0;i<argc;i++){
+						if(argv[i][1]=='o')
+							continue;
+						if(j==0)
+							strcpy(outName,argv[i]);
+						else
+							sprintf(outName,"%s,%s",outName,argv[i]);
+						j++;
+					}
+					sprintf(outFile,"data/%s_%d.txt",outName,trial);
+					fOut=fopen(outFile,"w");
 				break;
 			}
 		}
@@ -348,6 +370,7 @@ void Ga::printMinFitness(){
 	variance/=mPopulationSize;
 	cout<<"min="<<temp;
 	cout<<",variance="<<variance<<endl;
+	fprintf(fOut,"min=%d,variance=%lf\n",temp,variance);
 }
 
 void Ga::removePopulation(int tar){
@@ -363,5 +386,8 @@ void Ga::removePopulation(int tar){
 Ga::~Ga(){
 	for(int i=0;i<mPopulation.size();i++){
 		delete(mPopulation[i]);
+	}
+	if(fOut!=stdout){
+		fclose(fOut);
 	}
 }
