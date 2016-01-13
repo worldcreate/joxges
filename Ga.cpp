@@ -372,7 +372,8 @@ void Ga::printMinFitness(int g){
 	cout<<"gen="<<g;
 	cout<<",min="<<temp;
 	cout<<",variance="<<variance<<endl;
-	fprintf(fOut,"gen=%d,min=%d,variance=%lf\n",g,temp,variance);
+	if(fOut!=stdout)
+		fprintf(fOut,"gen=%d,min=%d,variance=%lf\n",g,temp,variance);
 }
 
 void Ga::removePopulation(int tar){

@@ -25,6 +25,7 @@ void Usage(){
 	printf("  -G\t GES Mode 1 or 2\n");
 	printf("  -f\t setting file name\n");
 	printf("  -o\t output logfile\n");
+	printf("  -v\t show GES progress\n");
 	exit(0);
 }
 
