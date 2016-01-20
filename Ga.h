@@ -24,10 +24,12 @@ private:
 	void mutation(Individual*);
 	void shiftChange(vector<int>&,int,int);
 	void removePopulation(int);
+	bool judgeTerminal();
 	int mPopulationSize;
 	int mMutation;
 	int mGeneration;
 	int mChildNum;
+	int mOptimal;
 	char fileName[256];
 	vector<Individual*> mPopulation;
 	int mArgc;

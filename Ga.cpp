@@ -2,6 +2,7 @@
 #include "Individual.h"
 #include "Util.h"
 #include "Ges.h"
+#include "FileReader.h"
 #include <algorithm>
 #include <limits.h>
 #include <math.h>
@@ -66,6 +67,8 @@ Ga::Ga(int argc,char *argv[],int trial){
 	}
 	mArgc=argc;
 	mArgv=argv;
+	FileReader *fp=FileReader::getInstance(fileName);
+	mOptimal=fp->getMakespan();
 }
 
 void Ga::execute(){
@@ -75,6 +78,8 @@ void Ga::execute(){
 	while(g<mGeneration){
 		crossOver();
 		printMinFitness(g);
+		if(judgeTerminal())
+			break;
 		g++;
 	}
 
@@ -384,6 +389,15 @@ void Ga::removePopulation(int tar){
 			break;
 		}
 	}
+}
+
+bool Ga::judgeTerminal(){
+	for(int i=0;i<mPopulation.size();i++){
+		if(mPopulation[i]->getFitness()==mOptimal){
+			return true;
+		}
+	}
+	return false;
 }
 
 Ga::~Ga(){

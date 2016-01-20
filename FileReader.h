@@ -12,9 +12,11 @@ using namespace std;
 class FileReader{
 public:
 	vector<vector<JobPair> >& getTable();
+	int getMakespan();
 	static FileReader* getInstance(const char *);
 private:
 	vector<vector<JobPair> > mTable;
+	int makespan;
 	FileReader(const char *);
 	vector<string> split(const string &str, char delim);
 	static map<string,FileReader*> pool;
