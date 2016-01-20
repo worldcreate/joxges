@@ -23,6 +23,8 @@ FileReader::FileReader(const char *file){
 	int j=0;
 	int cnt=0;
 
+	getline(ifs,str);
+	makespan=atoi(str.c_str());
 	while(getline(ifs,str)){
 		vector<JobPair> row;
 		vector<string> array=split(str,':');
@@ -53,6 +55,10 @@ FileReader::FileReader(const char *file){
 
 vector<vector<JobPair> >& FileReader::getTable(){
 	return mTable;
+}
+
+int FileReader::getMakespan(){
+	return makespan;
 }
 
 vector<string> FileReader::split(const string &str, char delim){
