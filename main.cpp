@@ -52,7 +52,7 @@ int main(int argc,char *argv[]){
 	}
 	
 	for(int i=0;i<trial;i++){
-		Util::setSeed(SEED+i);
+		Util::setSeed(seed+i);
 		
 		Ga ga(argc,argv,i);
 		ga.execute();
